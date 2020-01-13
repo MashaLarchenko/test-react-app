@@ -1,5 +1,20 @@
 import React from "react"
 
-export default function ToDoList(){
+
+const styles = {
+    ul: {
+      listStyle: 'none',
+      margin: 0,
+      padding: 0  
+    }
     
+}
+
+export default function ToDoList(){
+    return(
+        <ul style={styles.ul}>
+            <li>1</li>
+            <li>2</li>
+        </ul>
+    )
 }
