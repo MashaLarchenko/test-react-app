@@ -1,5 +1,7 @@
 import React from "react"
 
+import ToDoItem from './ToDoItem'
+
 
 const styles = {
     ul: {
@@ -13,8 +15,8 @@ const styles = {
 export default function ToDoList(){
     return(
         <ul style={styles.ul}>
-            <li>1</li>
-            <li>2</li>
+            <ToDoItem/>
+            <ToDoItem/>
         </ul>
     )
 }
