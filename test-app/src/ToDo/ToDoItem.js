@@ -1,7 +1,7 @@
 import React from "react"
 
-export default function ToDoItem(){
+export default function ToDoItem({ todo, index }){
 return(
-    <li>ToDo</li>
+<li><strong>{index}</strong>{todo.title}</li>
 )
 }
