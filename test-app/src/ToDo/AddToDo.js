@@ -8,20 +8,32 @@ const style = {
   }
 };
 
+function useInputValue(dafaultVal = "") {
+  const [value, setValue] = useState(dafaultVal);
+  return {
+    bind: {
+      value,
+      onChange: event => setValue(event.target.value)
+    },
+    clear: () => setValue(""),
+    value: () => value
+  };
+}
+
 function AddToDo({ onCreate }) {
-  const [value, setValue] = useState("");
+  const input = useInputValue("");
 
   function submitHandler(event) {
     event.preventDefault();
 
-    if (value.trim()) {
-      onCreate(value);
-      setValue(' ')
+    if (input.value().trim()) {
+      onCreate(input.value());
+      input.clear()
     }
   }
   return (
     <form style={style.form} onSubmit={submitHandler}>
-      <input value={value} onChange={event => setValue(event.target.value)} />
+      <input {...input.bind} />
       <button type="submit">Add todo</button>
     </form>
   );
