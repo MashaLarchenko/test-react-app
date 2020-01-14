@@ -17,3 +17,15 @@ code {
   margin: 0 auto;
   width: 600px;
 }
+
+
+.rm {
+  background: #b50b0b;
+  border-radius: 25%;
+  color:#fff;
+  border: none;
+}
+
+.done {
+  text-decoration: line-through;
+}
