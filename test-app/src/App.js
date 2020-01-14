@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ToDoList from "./ToDo/ToDoList";
-// import AddToDo from "./ToDo/AddToDo";
+import Modal from "./Modal/Modal";
 import Loader from "./Loader";
 import Context from "./context";
 
@@ -53,6 +53,7 @@ function App() {
       <div className="wrapper">
         <h1>React App</h1>
         {loading && <Loader/>}
+        <Modal></Modal>
         {todos.length ?  (<ToDoList todos={todos} onToggle={toggleToDo} />) : (loading ? null : <p>No todos</p>)}
       <React.Suspense fallback={<p>Loading...</p>}>
             <AddToDo onCreate={addTodo}/>
