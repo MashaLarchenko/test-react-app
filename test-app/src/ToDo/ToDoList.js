@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ToDoItem from "./ToDoItem";
 
+
 const styles = {
   ul: {
     listStyle: "none",
@@ -10,9 +11,11 @@ const styles = {
   }
 };
 
+
 function ToDoList(props) {
   return (
     <ul style={styles.ul}>
+      <h2>{props.title}</h2>
       {props.todos.map((todo, index) => {
         return (
           <ToDoItem

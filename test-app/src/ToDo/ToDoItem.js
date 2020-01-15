@@ -28,13 +28,14 @@ function ToDoItem({ todo, index, onChange }) {
   console.log("todo", todo);
   return (
     <li style={styles.li}>
-      <span className={classes.join(' ')}>
-        <input
+      <span className={classes.join(' ')} style={styles.input}
+          onChange={() => onChange(todo.id)}>
+        {/* <input
           type="checkbox"
           checked={todo.completed}
           style={styles.input}
           onChange={() => onChange(todo.id)}
-        />
+        /> */}
         <strong>{index}</strong>
         &nbsp;
         {todo.title}

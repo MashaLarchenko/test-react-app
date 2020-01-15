@@ -13,9 +13,9 @@ code {
 }
 
 .wrapper {
-  padding-top: 5rem;
+  padding-top: .5rem;
   margin: 0 auto;
-  width: 600px;
+  /* width: 600px; */
 }
 
 
@@ -54,4 +54,18 @@ code {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.columnContainer {
+  display: flex;
+ justify-content: space-around;
+}
+
+.toDo {
+  flex-grow: 1;
+}
+
+.columnItem {
+  min-width: 25%;
+  padding: 2%;
 }
