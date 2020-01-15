@@ -25,7 +25,7 @@ function App() {
     },
     {
       id: "inProgress",
-      title: "inProgress",
+      title: "In Progress",
       tasksIds: [],
       columnOrder: 2
     },
