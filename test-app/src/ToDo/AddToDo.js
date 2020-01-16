@@ -6,13 +6,8 @@ const style = {
   form: {
     marginTop: "1rem",
     textAlign: "center",
-    width: "25%"
   }
 };
-
-let update = false;
-
-
 
 function useInputValue(dafaultVal = "") {
   const [value, setValue] = useState(dafaultVal);
@@ -26,7 +21,7 @@ function useInputValue(dafaultVal = "") {
   };
 }
 
-function AddToDo({ onCreate, changeColunm }) {
+function AddToDo({ onCreate }) {
   const input = useInputValue("");
   
   function submitHandler(event) {
@@ -34,10 +29,8 @@ function AddToDo({ onCreate, changeColunm }) {
 
     if (input.value().trim()) {
       onCreate(input.value());
-      update = true;
       input.clear();
     }
-    // changeColunm()
   }
 
   return (

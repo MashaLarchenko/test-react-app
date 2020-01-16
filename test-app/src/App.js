@@ -64,7 +64,7 @@ function App() {
     setTodos(todos.filter(todo => todo.id !== id));
   }
 
-  function addTaskToColumn() {
+  function addTaskToColumn(){
     const taskColumnName = todos[todos.length - 1].column;
     const newTaskiD = todos[todos.length - 1].id;
 
@@ -81,7 +81,7 @@ function App() {
       todos.concat([
         {
           title,
-          id: Date.now(),
+          id: todos.length+1,
           completed: false,
           column: "toDo"
         }
@@ -89,21 +89,22 @@ function App() {
     );
     columns.forEach(column=>{
         if(column.id === "toDo"){
-          column.tasksIds.push(Date.now())
+          column.tasksIds.push(todos.length+1)
         }
     })
     addTaskToColumn();
+    console.log(columns)
   }
   return (
     <Context.Provider value={{ removeToDo }}>
       <div className="wrapper">
-        <h1>Your Awesome To Do List</h1>
+        <h1>To Do List</h1>
         {loading && <Loader />}
         <Modal></Modal>
         <React.Suspense fallback={<p>Loading...</p>}>
-          <AddToDo onCreate={addTodo} changeColunm={addTaskToColumn} />
+          <AddToDo onCreate={addTodo} />
         </React.Suspense>
-       <Container columns={columns} onToggle={toggleToDo} loading={loading} todos={todos}></Container>
+       <Container columns={columns} onToggle={toggleToDo} loading={loading} todos={todos} setTodos={setTodos} setColumns={setColumns}></Container>
       </div>
     </Context.Provider>
   );
