@@ -37,6 +37,7 @@ function AddToDo({ onCreate, changeColunm }) {
       update = true;
       input.clear();
     }
+    // changeColunm()
   }
 
   return (
