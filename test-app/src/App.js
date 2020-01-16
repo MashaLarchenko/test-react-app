@@ -107,7 +107,30 @@ function App() {
       }
     });
     addTaskToColumn();
-    console.log(columns);
+  }
+
+  function onDragEnd(result) {
+    const { destination, source, draggableId } = result;
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppadbleId === source.droppadbleId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+    const sourceColumn = columns.filter(
+      column => column.id === source.droppableId
+    );
+    const newTasksIds = sourceColumn[0].tasksIds;
+    newTasksIds.splice(source.index, 1);
+    newTasksIds.splice(destination.index, 0, +draggableId);
+    sourceColumn[0].tasksIds = newTasksIds;
+    columns[0] = sourceColumn[0];
+
+    setColumns(columns);
   }
   return (
     <Context.Provider value={{ removeToDo }}>

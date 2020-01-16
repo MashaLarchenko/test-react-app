@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ToDoList from "./ToDoList";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Droppable } from "react-beautiful-dnd";
 
-export default function Container({
-  columns,
-  todos,
-  onToggle,
-  loading,
-  setColumns
-}) {
-    
+export default function Container({ columns, todos, onToggle, loading }) {
+  const [newColumns, setColumns] = useState(columns);
   function onDragEnd(result) {
     const { destination, source, draggableId } = result;
     if (!destination) {
@@ -23,23 +17,37 @@ export default function Container({
     ) {
       return;
     }
-    const sourceColumn = columns.filter(
+    const sourceColumn = newColumns.filter(
       column => column.id === source.droppableId
     );
     const newTasksIds = sourceColumn[0].tasksIds;
     newTasksIds.splice(source.index, 1);
     newTasksIds.splice(destination.index, 0, +draggableId);
     sourceColumn[0].tasksIds = newTasksIds;
-    columns[0] = sourceColumn[0];
-
-    setColumns(columns);
+    let newColData = []
+    newColumns.forEach(column => {
+        console.log(column,sourceColumn)
+      if (column.id === sourceColumn[0].id) {
+        newColData.push(sourceColumn[0])
+          console.log('1ddd')
+      
+      } else{
+        newColData.push(column)
+      }
+      setColumns(newColData);
+    });
+    // newColumns[0] = sourceColumn[0];
+    // console.log(newColumns)
+    // setColumns({
+    //     newColumns});
+    // console.log(newColumns)
   }
 
   return (
     <DragDropContext onDragEnd={onDragEnd} key={Date.now()}>
       <div className="columnContainer">
-        {columns.map(column => {
-          console.log(columns);
+        {newColumns.map(column => {
+          console.log(newColumns);
           const tasks = [];
           const classes = ["columnItem"];
           classes.push(column.id);
