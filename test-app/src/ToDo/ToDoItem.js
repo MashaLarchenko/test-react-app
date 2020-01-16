@@ -39,7 +39,7 @@ function ToDoItem({ todo, index, onChange }) {
         &nbsp;
         {todo.title}
       </span>
-      <button className="rm" onClick={removeToDo.bind(null, todo.id)}>&times;</button>
+      <button className="rm" onClick={removeToDo.bind(null, todo.id, todo.column)}>&times;</button>
     </li>
   );
 }

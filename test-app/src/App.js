@@ -60,19 +60,33 @@ function App() {
     );
   }
 
-  function removeToDo(id) {
+  function removeToDo(id, columnId) {
     setTodos(todos.filter(todo => todo.id !== id));
+
+    columns.map(column => {
+      const delEl = column.tasksIds.indexOf(id);
+      if (column.id === columnId) {
+        column.tasksIds.splice(delEl, 1);
+      }
+      return column;
+    });
+    setColumns(columns);
   }
 
-  function addTaskToColumn(){
-    const taskColumnName = todos[todos.length - 1].column;
-    const newTaskiD = todos[todos.length - 1].id;
+  function addTaskToColumn() {
+    if (todos.length) {
+      const taskColumnName = todos[todos.length - 1].column;
+      const newTaskiD = todos[todos.length - 1].id;
+      columns.forEach(column => {
+        if (
+          column.id === taskColumnName &&
+          !column.tasksIds.includes(newTaskiD)
+        ) {
+          column.tasksIds.push(newTaskiD);
+        }
+      });
+    }
 
-    columns.forEach(column => {
-      if (column.id === taskColumnName && !column.tasksIds.includes(newTaskiD)) {
-        column.tasksIds.push(newTaskiD);
-      }
-    });
     return setColumns(columns);
   }
 
@@ -81,19 +95,19 @@ function App() {
       todos.concat([
         {
           title,
-          id: todos.length+1,
+          id: todos.length + 1,
           completed: false,
           column: "toDo"
         }
       ])
     );
-    columns.forEach(column=>{
-        if(column.id === "toDo"){
-          column.tasksIds.push(todos.length+1)
-        }
-    })
+    columns.forEach(column => {
+      if (column.id === "toDo") {
+        column.tasksIds.push(todos.length + 1);
+      }
+    });
     addTaskToColumn();
-    console.log(columns)
+    console.log(columns);
   }
   return (
     <Context.Provider value={{ removeToDo }}>
@@ -104,7 +118,14 @@ function App() {
         <React.Suspense fallback={<p>Loading...</p>}>
           <AddToDo onCreate={addTodo} />
         </React.Suspense>
-       <Container columns={columns} onToggle={toggleToDo} loading={loading} todos={todos} setTodos={setTodos} setColumns={setColumns}></Container>
+        <Container
+          columns={columns}
+          onToggle={toggleToDo}
+          loading={loading}
+          todos={todos}
+          setTodos={setTodos}
+          setColumns={setColumns}
+        ></Container>
       </div>
     </Context.Provider>
   );
