@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import PropTypes from "prop-types";
 import Context from "../context";
 
 const style = {
   form: {
-    marginTop: "1rem"
+    marginTop: "1rem",
+    textAlign: "center",
+    width: "25%"
   }
 };
+
+let update = false;
+
+
 
 function useInputValue(dafaultVal = "") {
   const [value, setValue] = useState(dafaultVal);
@@ -20,17 +26,19 @@ function useInputValue(dafaultVal = "") {
   };
 }
 
-function AddToDo({ onCreate }) {
+function AddToDo({ onCreate, changeColunm }) {
   const input = useInputValue("");
-
+  
   function submitHandler(event) {
     event.preventDefault();
 
     if (input.value().trim()) {
       onCreate(input.value());
-      input.clear()
+      update = true;
+      input.clear();
     }
   }
+
   return (
     <form style={style.form} onSubmit={submitHandler}>
       <input {...input.bind} />

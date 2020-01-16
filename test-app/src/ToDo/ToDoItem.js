@@ -25,7 +25,6 @@ function ToDoItem({ todo, index, onChange }) {
     if(todo.completed) {
         classes.push('done')
     }
-  console.log("todo", todo);
   return (
     <li style={styles.li}>
       <span className={classes.join(' ')} style={styles.input}

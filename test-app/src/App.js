@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ToDoList from "./ToDo/ToDoList";
 import Modal from "./Modal/Modal";
 import Loader from "./Loader";
@@ -63,25 +63,52 @@ function App() {
     setTodos(todos.filter(todo => todo.id !== id));
   }
 
+  function addTaskToColumn() {
+    console.log(todos);
+    const taskColumnName = todos[todos.length - 1].column;
+    const newTaskiD = todos[todos.length - 1].id;
+
+    columns.forEach(column => {
+      if (column.id === taskColumnName && newTaskiD !== column.tasksIds[column.tasksIds.length - 1]) {
+        column.tasksIds.push(newTaskiD);
+      }
+    });
+    console.log(newTaskiD, columns);
+    return setColumns(columns);
+  }
+
   function addTodo(title) {
     setTodos(
       todos.concat([
         {
           title,
           id: Date.now(),
-          completed: false
+          completed: false,
+          column: "toDo"
         }
       ])
     );
+
+    addTaskToColumn();
   }
 
-  function onDragEnd(result) {}
+  // componentDidUpdate() {
+  //   document.title = addTaskToColumn();
+  // }
+
+  function onDragEnd(result) {
+    console.log(result);
+  }
+
   return (
     <Context.Provider value={{ removeToDo }}>
       <div className="wrapper">
-        <h1>React App</h1>
+        <h1>Your Awesome To Do List</h1>
         {loading && <Loader />}
         <Modal></Modal>
+        <React.Suspense fallback={<p>Loading...</p>}>
+          <AddToDo onCreate={addTodo} changeColunm={addTaskToColumn} />
+        </React.Suspense>
         <div className="columnContainer">
           {columns.map(column => {
             const tasks = [];
@@ -89,7 +116,7 @@ function App() {
             classes.push(column.id);
             column.tasksIds.map(task =>
               todos.forEach(taskListEl => {
-                console.log(taskListEl.id, task);
+                // console.log(taskListEl.id, task);
                 return taskListEl.id === task ? tasks.push(taskListEl) : null;
               })
             );
@@ -125,9 +152,6 @@ function App() {
             );
           })}
         </div>
-        <React.Suspense fallback={<p>Loading...</p>}>
-          <AddToDo onCreate={addTodo} />
-        </React.Suspense>
       </div>
     </Context.Provider>
   );

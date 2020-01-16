@@ -18,6 +18,10 @@ code {
   /* width: 600px; */
 }
 
+.wrapper h1 {
+  text-align: center;
+}
+
 
 .rm {
   background: #b50b0b;
