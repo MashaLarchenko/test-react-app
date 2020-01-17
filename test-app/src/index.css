@@ -73,3 +73,18 @@ code {
   min-width: 25%;
   padding: 2%;
 }
+
+.onDrag {
+  background-color: lightgreen;
+}
+
+.todoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: .5rem;
+  /* background: white; */
+}

@@ -1,6 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import Context from "../context";
+import styled from "styled-components";
+
+
 
 
 const styles = {
@@ -11,30 +14,39 @@ const styles = {
     padding: ".5rem 1rem",
     border: "1px solid #ccc",
     borderRadius: "4px",
-    marginBottom: ".5rem"
+    marginBottom: ".5rem",
   },
   input: {
     marginRight: "1rem"
   }
 };
 
-function ToDoItem({ todo, index, onChange }) {
+// const ToDoItemContainer = styled.div`
+//   background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
+// `;
+
+// const color ={
+//   false: ' background: "white"',
+//   true:  ' background: "lightgreen"'
+// }
+
+// let isDragginsEv = false;
+
+
+function ToDoItem({ todo, index, onChange, draggingEv }) {
+
     const { removeToDo } = useContext(Context)
     const classes = [];
+    const colorDrag = ['todoItem', draggingEv]
+
 
     if(todo.completed) {
         classes.push('done')
     }
   return (
-    <li style={styles.li}>
+       <li className={colorDrag.join(' ')} >
       <span className={classes.join(' ')} style={styles.input}
           onChange={() => onChange(todo.id)}>
-        {/* <input
-          type="checkbox"
-          checked={todo.completed}
-          style={styles.input}
-          onChange={() => onChange(todo.id)}
-        /> */}
         <strong>{index}</strong>
         &nbsp;
         {todo.title}

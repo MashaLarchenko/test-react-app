@@ -26,21 +26,14 @@ export default function Container({ columns, todos, onToggle, loading }) {
     sourceColumn[0].tasksIds = newTasksIds;
     let newColData = []
     newColumns.forEach(column => {
-        console.log(column,sourceColumn)
       if (column.id === sourceColumn[0].id) {
         newColData.push(sourceColumn[0])
-          console.log('1ddd')
-      
       } else{
         newColData.push(column)
       }
       setColumns(newColData);
     });
-    // newColumns[0] = sourceColumn[0];
-    // console.log(newColumns)
-    // setColumns({
-    //     newColumns});
-    // console.log(newColumns)
+ 
   }
 
   return (

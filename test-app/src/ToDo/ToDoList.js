@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ToDoItem from "./ToDoItem";
 import { Draggable } from "react-beautiful-dnd";
+import styled from "styled-components";
 
 const styles = {
   ul: {
@@ -12,6 +13,7 @@ const styles = {
 };
 
 function ToDoList(props) {
+
   return (
     <ul style={styles.ul}>
       <h2>{props.title}</h2>
@@ -22,20 +24,31 @@ function ToDoList(props) {
             key={todo.id}
             index={index}
           >
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-              >
-                <ToDoItem
-                  todo={todo}
-                  index={index + 1}
-                  key={todo.id}
-                  onChange={props.onToggle}
-                />
-              </div>
-            )}
+            {(provided, snapshot) => {
+                let draggingEv = ''
+              if (snapshot.isDragging) {
+                 draggingEv = 'onDrag';
+              }
+              return (
+                   <div
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  isDragging={snapshot.isDragging}
+                >
+                 <ToDoItem
+                    todo={todo}
+                    index={index + 1}
+                    key={todo.id}
+                    onChange={props.onToggle}
+                    style={styles.dragItem}
+                    draggingEv={draggingEv}
+                  /> 
+                </div>
+               
+               
+              );
+            }}
           </Draggable>
         );
       })}

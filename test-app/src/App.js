@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import ToDoList from "./ToDo/ToDoList";
 import Modal from "./Modal/Modal";
 import Loader from "./Loader";
 import Context from "./context";
-// import { DragDropContext } from "react-beautiful-dnd";
-// import { Droppable } from "react-beautiful-dnd";
 import Container from "./ToDo/Container";
 
 const AddToDo = React.lazy(() => import("./ToDo/AddToDo"));
