@@ -78,6 +78,11 @@ code {
   background-color: lightgreen;
 }
 
+.onDragOver {
+  background-color: skyblue;
+
+}
+
 .todoItem {
   display: flex;
   justify-content: space-between;
@@ -87,4 +92,8 @@ code {
   border-radius: 4px;
   margin-bottom: .5rem;
   /* background: white; */
+}
+
+.listContainer {
+  width: 25%;
 }

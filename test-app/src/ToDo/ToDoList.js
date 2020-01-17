@@ -2,21 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 import ToDoItem from "./ToDoItem";
 import { Draggable } from "react-beautiful-dnd";
-import styled from "styled-components";
 
 const styles = {
   ul: {
     listStyle: "none",
     margin: 0,
-    padding: 0
+    padding: 0,
+    height: '100%'
   }
 };
 
 function ToDoList(props) {
+  const colorDragOver = props.draggingEvOver
 
   return (
-    <ul style={styles.ul}>
-      <h2>{props.title}</h2>
+    <ul style={styles.ul} className={colorDragOver}>
+      <h2 style={{backgroundColor:'white'}}>{props.title}</h2>
       {props.todos.map((todo, index) => {
         return (
           <Draggable

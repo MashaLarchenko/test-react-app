@@ -24,16 +24,15 @@ export default function Container({ columns, todos, onToggle, loading }) {
     newTasksIds.splice(source.index, 1);
     newTasksIds.splice(destination.index, 0, +draggableId);
     sourceColumn[0].tasksIds = newTasksIds;
-    let newColData = []
+    let newColData = [];
     newColumns.forEach(column => {
       if (column.id === sourceColumn[0].id) {
-        newColData.push(sourceColumn[0])
-      } else{
-        newColData.push(column)
+        newColData.push(sourceColumn[0]);
+      } else {
+        newColData.push(column);
       }
       setColumns(newColData);
     });
- 
   }
 
   return (
@@ -55,21 +54,33 @@ export default function Container({ columns, todos, onToggle, loading }) {
             <React.Fragment>
               {tasks.length ? (
                 <Droppable droppableId={column.id}>
-                  {(provided, snapshot) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps}>
-                      <ToDoList
-                        todos={tasks}
-                        onToggle={onToggle}
-                        title={column.title}
-                        tasks={column.tasks}
-                        className={classes.join(" ")}
-                      />
-                      {provided.placeholder}
-                    </div>
-                  )}
+                  {(provided, snapshot) => {
+                    let draggingEvOver = "";
+                    if (snapshot.isDraggingOver) {
+                      draggingEvOver = "onDragOver";
+                    }
+                    return (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        isDraggingOver={snapshot.isDraggingOver}
+                        className={'listContainer'}
+                      >
+                        <ToDoList
+                          todos={tasks}
+                          onToggle={onToggle}
+                          title={column.title}
+                          tasks={column.tasks}
+                          className={classes.join(" ")}
+                          draggingEvOver={draggingEvOver}
+                        />
+                        {provided.placeholder}
+                      </div>
+                    );
+                  }}
                 </Droppable>
               ) : loading ? null : (
-                <div>
+                <div className={'listContainer'}>
                   <h2>{column.title}</h2>
                   <p>No todos</p>
                 </div>
