@@ -45,6 +45,7 @@ function ToDoList(props) {
                     style={styles.dragItem}
                     draggingEv={draggingEv}
                   />
+                  {provided.placeholder}
                 </div>
               );
             }}

@@ -5,6 +5,7 @@ import { Droppable } from "react-beautiful-dnd";
 
 export default function Container({ columns, todos, onToggle, loading }) {
   const [newColumns, setColumns] = useState(columns);
+
   function onDragEnd(result) {
     const { destination, source, draggableId } = result;
     if (!destination) {
@@ -12,42 +13,82 @@ export default function Container({ columns, todos, onToggle, loading }) {
     }
 
     if (
-      destination.droppadbleId === source.droppadbleId &&
+      destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
+      console.log( destination.droppableId, source.droppadbleId,  destination.index, source.index, destination)
       return;
     }
+    console.log( destination.droppableId, source.droppadbleId,  destination.index, source.index, destination)
+
     const sourceColumn = newColumns.filter(
       column => column.id === source.droppableId
     );
 
-    console.log(source, destination);
+    const startColumn = sourceColumn;
+    const endColumn = newColumns.filter(
+      column => column.id === destination.droppableId
+    );
+    console.log(startColumn[0].id, endColumn[0].id);
 
-    const newTasksIds = sourceColumn[0].tasksIds;
-    newTasksIds.splice(source.index, 1);
-    newTasksIds.splice(destination.index, 0, +draggableId);
-    sourceColumn[0].tasksIds = newTasksIds;
-    let newColData = [];
-    newColumns.forEach(column => {
-      if (column.id === sourceColumn[0].id) {
-        newColData.push(sourceColumn[0]);
-      } else {
-        newColData.push(column);
-      }
-      setColumns(newColData);
-    });
+    if (startColumn[0].id === endColumn[0].id) {
+      const newTasksIds = sourceColumn[0].tasksIds;
+      newTasksIds.splice(source.index, 1);
+      newTasksIds.splice(destination.index, 0, +draggableId);
+      sourceColumn[0].tasksIds = newTasksIds;
+      let newColData = [];
+      newColumns.forEach(column => {
+        if (column.id === sourceColumn[0].id) {
+          newColData.push(sourceColumn[0]);
+        } else {
+          newColData.push(column);
+        }
+        setColumns(newColData);
+        return;
+      });
+    } else {
+      const newStartTasksIds = startColumn[0].tasksIds;
+      newStartTasksIds.splice(source.index, 1);
+      startColumn[0].tasksIds = newStartTasksIds;
+      let newStartColData = [];
+      newColumns.forEach(column => {
+        if (column.id === startColumn[0].id) {
+          newStartColData.push(startColumn[0]);
+        } else {
+          newStartColData.push(column);
+        }
+        setColumns(newStartColData);
+      });
+
+      const newEndTasksIds = endColumn[0].tasksIds;
+      newEndTasksIds.splice(destination.index, 0, +draggableId);
+      endColumn[0].tasksIds = newEndTasksIds;
+      let newEndColData = [];
+      newColumns.forEach(column => {
+        if (column.id === endColumn[0].id) {
+          newEndColData.push(endColumn[0]);
+        } else {
+          newEndColData.push(column);
+        }
+        setColumns(newEndColData);
+      });
+    }
+    console.log(startColumn[0].id, endColumn[0].id);
+    const listItem = document.querySelector(".listItem");
+    listItem.style.color = "black";
   }
 
-  function onDragStart() {
+  function onDragStart(ev) {
     const listItem = document.querySelector(".listItem");
     listItem.style.color = "orange";
+    console.log(ev);
   }
 
   return (
     <DragDropContext
-      onDragEnd={onDragEnd}
       onDragStart={onDragStart}
-      key={Date.now()}
+      onDragEnd={onDragEnd}
+      // key={Date.now()}
     >
       <div className="columnContainer">
         {newColumns.map(column => {
@@ -60,7 +101,7 @@ export default function Container({ columns, todos, onToggle, loading }) {
             })
           );
           return (
-            <React.Fragment>
+            <React.Fragment key={column.id}>
               {tasks.length ? (
                 <Droppable droppableId={column.id}>
                   {(provided, snapshot) => {
@@ -94,15 +135,19 @@ export default function Container({ columns, todos, onToggle, loading }) {
                     let draggingEvOver = ["listContainer"];
 
                     if (snapshot.isDraggingOver) {
-                      draggingEvOver.push("onDragOver") ;
+                      draggingEvOver.push("onDragOver");
+                      console.log("overNo");
                     }
                     return (
-                      <div  ref={provided.innerRef}
-                      {...provided.droppableProps}
-                      isDraggingOver={snapshot.isDraggingOver}
-                      className={draggingEvOver.join(" ")}>
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        isDraggingOver={snapshot.isDraggingOver}
+                        className={draggingEvOver.join(" ")}
+                      >
                         <h2>{column.title}</h2>
                         <p>No todos</p>
+                        {provided.placeholder}
                       </div>
                     );
                   }}
