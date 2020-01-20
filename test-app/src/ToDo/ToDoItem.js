@@ -36,7 +36,7 @@ const styles = {
 function ToDoItem({ todo, index, onChange, draggingEv }) {
 
     const { removeToDo } = useContext(Context)
-    const classes = [];
+    const classes = ['listItem'];
     const colorDrag = ['todoItem', draggingEv]
 
 

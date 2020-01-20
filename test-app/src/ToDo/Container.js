@@ -20,6 +20,9 @@ export default function Container({ columns, todos, onToggle, loading }) {
     const sourceColumn = newColumns.filter(
       column => column.id === source.droppableId
     );
+
+    console.log(source, destination);
+
     const newTasksIds = sourceColumn[0].tasksIds;
     newTasksIds.splice(source.index, 1);
     newTasksIds.splice(destination.index, 0, +draggableId);
@@ -35,16 +38,22 @@ export default function Container({ columns, todos, onToggle, loading }) {
     });
   }
 
+  function onDragStart() {
+    const listItem = document.querySelector(".listItem");
+    listItem.style.color = "orange";
+  }
+
   return (
-    <DragDropContext onDragEnd={onDragEnd} key={Date.now()}>
+    <DragDropContext
+      onDragEnd={onDragEnd}
+      onDragStart={onDragStart}
+      key={Date.now()}
+    >
       <div className="columnContainer">
         {newColumns.map(column => {
-          console.log(newColumns);
           const tasks = [];
           const classes = ["columnItem"];
           classes.push(column.id);
-          console.log(column.tasksIds);
-
           column.tasksIds.map(idTask =>
             todos.forEach(todo => {
               return todo.id === idTask ? tasks.push(todo) : null;
@@ -64,7 +73,7 @@ export default function Container({ columns, todos, onToggle, loading }) {
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                         isDraggingOver={snapshot.isDraggingOver}
-                        className={'listContainer'}
+                        className={"listContainer"}
                       >
                         <ToDoList
                           todos={tasks}
@@ -80,10 +89,24 @@ export default function Container({ columns, todos, onToggle, loading }) {
                   }}
                 </Droppable>
               ) : loading ? null : (
-                <div className={'listContainer'}>
-                  <h2>{column.title}</h2>
-                  <p>No todos</p>
-                </div>
+                <Droppable droppableId={column.id}>
+                  {(provided, snapshot) => {
+                    let draggingEvOver = ["listContainer"];
+
+                    if (snapshot.isDraggingOver) {
+                      draggingEvOver.push("onDragOver") ;
+                    }
+                    return (
+                      <div  ref={provided.innerRef}
+                      {...provided.droppableProps}
+                      isDraggingOver={snapshot.isDraggingOver}
+                      className={draggingEvOver.join(" ")}>
+                        <h2>{column.title}</h2>
+                        <p>No todos</p>
+                      </div>
+                    );
+                  }}
+                </Droppable>
               )}
             </React.Fragment>
           );

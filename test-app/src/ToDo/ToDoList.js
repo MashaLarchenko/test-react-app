@@ -8,16 +8,16 @@ const styles = {
     listStyle: "none",
     margin: 0,
     padding: 0,
-    height: '100%'
+    height: "100%"
   }
 };
 
 function ToDoList(props) {
-  const colorDragOver = props.draggingEvOver
+  const colorDragOver = props.draggingEvOver;
 
   return (
     <ul style={styles.ul} className={colorDragOver}>
-      <h2 style={{backgroundColor:'white'}}>{props.title}</h2>
+      <h2 style={{ backgroundColor: "white" }}>{props.title}</h2>
       {props.todos.map((todo, index) => {
         return (
           <Draggable
@@ -26,28 +26,26 @@ function ToDoList(props) {
             index={index}
           >
             {(provided, snapshot) => {
-                let draggingEv = ''
+              let draggingEv = "";
               if (snapshot.isDragging) {
-                 draggingEv = 'onDrag';
+                draggingEv = "onDrag";
               }
               return (
-                   <div
+                <div
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
                   isDragging={snapshot.isDragging}
                 >
-                 <ToDoItem
+                  <ToDoItem
                     todo={todo}
                     index={index + 1}
                     key={todo.id}
                     onChange={props.onToggle}
                     style={styles.dragItem}
                     draggingEv={draggingEv}
-                  /> 
+                  />
                 </div>
-               
-               
               );
             }}
           </Draggable>
