@@ -5,6 +5,7 @@ import { Droppable } from "react-beautiful-dnd";
 
 export default function Container({ columns, todos, onToggle, loading }) {
   const [newColumns, setColumns] = useState(columns);
+  const [newTodos, setTodos] = useState(todos);
 
   function onDragEnd(result) {
     const { destination, source, draggableId } = result;
@@ -16,10 +17,8 @@ export default function Container({ columns, todos, onToggle, loading }) {
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
-      console.log( destination.droppableId, source.droppadbleId,  destination.index, source.index, destination)
       return;
     }
-    console.log( destination.droppableId, source.droppadbleId,  destination.index, source.index, destination)
 
     const sourceColumn = newColumns.filter(
       column => column.id === source.droppableId
@@ -29,7 +28,6 @@ export default function Container({ columns, todos, onToggle, loading }) {
     const endColumn = newColumns.filter(
       column => column.id === destination.droppableId
     );
-    console.log(startColumn[0].id, endColumn[0].id);
 
     if (startColumn[0].id === endColumn[0].id) {
       const newTasksIds = sourceColumn[0].tasksIds;
@@ -71,9 +69,16 @@ export default function Container({ columns, todos, onToggle, loading }) {
           newEndColData.push(column);
         }
         setColumns(newEndColData);
+        setTodos(
+          newTodos.map(todo => {
+            if (todo.id === +draggableId) {
+              todo.column = destination.droppableId;
+            }
+            return todo;
+          })
+        );
       });
     }
-    console.log(startColumn[0].id, endColumn[0].id);
     const listItem = document.querySelector(".listItem");
     listItem.style.color = "black";
   }
@@ -81,15 +86,10 @@ export default function Container({ columns, todos, onToggle, loading }) {
   function onDragStart(ev) {
     const listItem = document.querySelector(".listItem");
     listItem.style.color = "orange";
-    console.log(ev);
   }
 
   return (
-    <DragDropContext
-      onDragStart={onDragStart}
-      onDragEnd={onDragEnd}
-      // key={Date.now()}
-    >
+    <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
       <div className="columnContainer">
         {newColumns.map(column => {
           const tasks = [];
@@ -136,7 +136,6 @@ export default function Container({ columns, todos, onToggle, loading }) {
 
                     if (snapshot.isDraggingOver) {
                       draggingEvOver.push("onDragOver");
-                      console.log("overNo");
                     }
                     return (
                       <div

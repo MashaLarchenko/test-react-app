@@ -1,10 +1,6 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import Context from "../context";
-import styled from "styled-components";
-
-
-
 
 const styles = {
   li: {
@@ -20,17 +16,6 @@ const styles = {
     marginRight: "1rem"
   }
 };
-
-// const ToDoItemContainer = styled.div`
-//   background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
-// `;
-
-// const color ={
-//   false: ' background: "white"',
-//   true:  ' background: "lightgreen"'
-// }
-
-// let isDragginsEv = false;
 
 
 function ToDoItem({ todo, index, onChange, draggingEv }) {

@@ -17,7 +17,7 @@ function ToDoList(props) {
 
   return (
     <ul style={styles.ul} className={colorDragOver}>
-      <h2 style={{ backgroundColor: "white" }}>{props.title}</h2>
+      <h2>{props.title}</h2>
       {props.todos.map((todo, index) => {
         return (
           <Draggable
