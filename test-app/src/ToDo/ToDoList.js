@@ -8,15 +8,15 @@ const styles = {
     listStyle: "none",
     margin: 0,
     padding: 0,
-    height: "100%"
+    // height: "100%"
   }
 };
 
 function ToDoList(props) {
-  const colorDragOver = props.draggingEvOver;
+  // const colorDragOver = props.draggingEvOver;
 
   return (
-    <ul style={styles.ul} className={colorDragOver}>
+    <ul style={styles.ul} >
       <h2>{props.title}</h2>
       {props.todos.map((todo, index) => {
         return (

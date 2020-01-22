@@ -6,6 +6,17 @@ const style = {
   form: {
     marginTop: "1rem",
     textAlign: "center",
+  },
+  button: {
+    marginLeft: '2%',
+    background: '#d3d1e3',
+    width: '70px',
+    height: '30px',
+    borderRadius: '8px'
+  },
+  input: {
+    width: '20%',
+    height: '20px'
   }
 };
 
@@ -35,8 +46,8 @@ function AddToDo({ onCreate }) {
 
   return (
     <form style={style.form} onSubmit={submitHandler}>
-      <input {...input.bind} />
-      <button type="submit">Add todo</button>
+      <input {...input.bind} style={style.input}/>
+      <button type="submit" style={style.button}> Add todo</button>
     </form>
   );
 }

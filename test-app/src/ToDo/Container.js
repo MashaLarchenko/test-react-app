@@ -105,16 +105,16 @@ export default function Container({ columns, todos, onToggle, loading }) {
               {tasks.length ? (
                 <Droppable droppableId={column.id}>
                   {(provided, snapshot) => {
-                    let draggingEvOver = "";
+                    let draggingEvOver = ["listContainer"];
                     if (snapshot.isDraggingOver) {
-                      draggingEvOver = "onDragOver";
+                      draggingEvOver.push("onDragOver");
                     }
                     return (
                       <div
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                         isDraggingOver={snapshot.isDraggingOver}
-                        className={"listContainer"}
+                        className={draggingEvOver.join(' ')}
                       >
                         <ToDoList
                           todos={tasks}

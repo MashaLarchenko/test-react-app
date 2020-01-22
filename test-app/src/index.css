@@ -14,8 +14,8 @@ code {
 
 .wrapper {
   margin: 0 auto;
-  height: 90vh;
-  /* width: 600px; */
+  height: 100vh;
+  background: ghostwhite;
 }
 
 .wrapper h1 {
@@ -79,18 +79,9 @@ code {
   padding: 2%;
 }
 
-
-
-.onDragOver {
-  transition: background-color 0.2s ease;
-  background-color: skyblue;
-  
-
-}
-
 .todoItem.onDrag {
   transition: background-color 0.2s ease;
-  background-color: lightgreen;
+  background-color: rgb(195, 250, 247);
 }
 
 .todoItem {
@@ -101,9 +92,9 @@ code {
   margin-bottom: .5rem;
   padding: .5rem 1rem;
   width: 85%;
-  border: 1px solid #ccc;
+  border: 1px solid #514a4a;
   border-radius: 4px;
-  background: #a79090;
+  background: #fafafa;
 }
 
 .listContainer {
@@ -116,8 +107,13 @@ background-color: #d3d1e3;
 box-shadow: 15px 17px 26px -8px rgba(0,0,0,0.68);
 }
 
+.listContainer.onDragOver {
+  transition: background-color 0.2s ease;
+  background-color: #6860a3;
+}
+
 .header {
-  padding: 1% 0 5%;
-  background-color: aliceblue;
+  padding: 3% 0 5%;
+  /* background-color: aliceblue; */
   margin: 0;
 }

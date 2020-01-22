@@ -35,17 +35,6 @@ function App() {
     }
   ]);
 
-  // useEffect(() => {
-  //   fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
-  //   .then(response => response.json())
-  //   .then(todos =>
-  //     setTimeout(() => {
-  //       setTodos(todos);
-  //       setLoading(false);
-  //     }, 2000)
-  //   )
-  // }, [])
-
   function toggleToDo(id) {
     setTodos(
       todos.map(todo => {
@@ -74,7 +63,6 @@ function App() {
     if (todos.length && !todos.includes(todos[todos.length - 1].id)) {
       const taskColumnName = todos[todos.length - 1].column;
       const newTaskiD = todos[todos.length - 1].id;
-      console.log(newTaskiD, todos.includes(todos[todos.length - 1].id), todos)
       columns.forEach(column => {
         if (
           column.id === taskColumnName &&
@@ -114,7 +102,7 @@ function App() {
                   <h1>To Do List</h1>
         </div>
         {loading && <Loader />}
-        <Modal></Modal>
+        {/* <Modal></Modal> */}
         <React.Suspense fallback={<p>Loading...</p>}>
           <AddToDo onCreate={addTodo} />
         </React.Suspense>
