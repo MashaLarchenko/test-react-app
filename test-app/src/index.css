@@ -70,6 +70,8 @@ code {
   /* max-height: 80%; */
 }
 
+
+
 .toDo {
   flex-grow: 1;
 }
@@ -91,7 +93,7 @@ code {
   margin: 0 auto;
   margin-bottom: .5rem;
   padding: .5rem 1rem;
-  width: 85%;
+  width: 70%;
   border: 1px solid #514a4a;
   border-radius: 4px;
   background: #fafafa;
@@ -116,4 +118,18 @@ box-shadow: 15px 17px 26px -8px rgba(0,0,0,0.68);
   padding: 3% 0 5%;
   /* background-color: aliceblue; */
   margin: 0;
+}
+
+@media all and (max-width: 500px) {
+  .columnContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .listContainer {
+    width: 75%;
+    margin-bottom: 5%;
+    padding-bottom: 10%;
+  }
+
 }
