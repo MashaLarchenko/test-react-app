@@ -9,10 +9,11 @@ const style = {
   },
   button: {
     marginLeft: '2%',
-    background: '#d3d1e3',
-    width: '70px',
+    background: 'rgb(155, 98, 95)',
+    width: '7%',
     height: '30px',
-    borderRadius: '8px'
+    borderRadius: '8px',
+    border: 'antiquewhite'
   },
   input: {
     width: '20%',

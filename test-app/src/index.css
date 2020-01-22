@@ -16,6 +16,10 @@ code {
   margin: 0 auto;
   height: 100vh;
   background: ghostwhite;
+  background: url(./assets/writing.jpg) rgba(0, 0, 0, .2) ;
+  background-blend-mode: multiply;
+  background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .wrapper h1 {
@@ -103,7 +107,7 @@ code {
   width: 25%;
 border: 1px solid black;
 border-radius: 3%;
-background-color: #d3d1e3;
+background-color: rgba(155, 98, 95, 0.9);
 -webkit-box-shadow: 15px 17px 26px -8px rgba(0,0,0,0.68);
 -moz-box-shadow: 15px 17px 26px -8px rgba(0,0,0,0.68);
 box-shadow: 15px 17px 26px -8px rgba(0,0,0,0.68);
@@ -111,12 +115,12 @@ box-shadow: 15px 17px 26px -8px rgba(0,0,0,0.68);
 
 .listContainer.onDragOver {
   transition: background-color 0.2s ease;
-  background-color: #6860a3;
+  background-color: rgba(105, 36, 33, 0.9);
 }
 
 .header {
   padding: 3% 0 5%;
-  /* background-color: aliceblue; */
+  color: antiquewhite;
   margin: 0;
 }
 
